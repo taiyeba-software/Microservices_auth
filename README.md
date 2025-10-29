@@ -72,18 +72,3 @@ Notes:
 - Tests use the exported `connectDB(uri)` from `src/db/db.js` so the in-memory MongoDB URI is passed directly to mongoose for test isolation.
 - The `--runInBand` flag is used to avoid Jest worker issues with in-memory MongoDB.
 
-## Security note
-
-- I noticed a `.env` in the project containing a live MongoDB connection string. Please remove any secrets from the repository and use environment variables in CI or local dev. The test setup avoids using this URI by passing the in-memory server URI explicitly.
-
-## Next steps (optional)
-
-- Replace plain password storage with `bcryptjs` hashing and add tests asserting hashed passwords.
-- Add CI (GitHub Actions) that runs these tests (the in-memory DB will work on CI without extra setup).
-- Improve the `/auth/register` route to include proper validation, error handling, and JWT issuance.
-
-If you want, I can implement password hashing and update tests now.
-
----
-
-If anything is unclear or you want the README expanded (examples, API contract, environment variables, CI config), tell me which section to expand and I will update it.

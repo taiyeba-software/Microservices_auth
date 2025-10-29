@@ -24,7 +24,7 @@ afterAll(async () => {
   if (mongoServer) await mongoServer.stop();
 });
 
-describe('POST /auth/register', () => {
+describe('POST /api/auth/register', () => {
   it('creates a user and returns 201 with basic info', async () => {
     const payload = {
       username: 'testuser',
@@ -33,7 +33,7 @@ describe('POST /auth/register', () => {
       fullname: { firstname: 'Test', lastname: 'User' }
     };
 
-    const res = await request(app).post('/auth/register').send(payload).expect(201);
+    const res = await request(app).post('/api/auth/register').send(payload).expect(201);
 
     expect(res.body).toHaveProperty('id');
     expect(res.body).toMatchObject({ username: 'testuser', email: 'test@example.com' });
@@ -44,7 +44,7 @@ describe('POST /auth/register', () => {
   });
 
   it('returns 400 if required fields are missing', async () => {
-    const res = await request(app).post('/auth/register').send({}).expect(400);
+    const res = await request(app).post('/api/auth/register').send({}).expect(400);
     expect(res.body).toHaveProperty('message');
   });
 
@@ -57,9 +57,9 @@ describe('POST /auth/register', () => {
     };
 
     // create first
-    await request(app).post('/auth/register').send(payload).expect(201);
+    await request(app).post('/api/auth/register').send(payload).expect(201);
     // attempt duplicate
-    const res = await request(app).post('/auth/register').send(payload).expect(409);
+    const res = await request(app).post('/api/auth/register').send(payload).expect(409);
     expect(res.body).toHaveProperty('message');
   });
 });

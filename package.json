@@ -12,8 +12,8 @@
   "type": "commonjs",
   "devDependencies": {
     "jest": "^29.6.1",
-    "supertest": "^6.3.3",
-    "mongodb-memory-server": "^8.12.2"
+    "mongodb-memory-server": "^8.12.2",
+    "supertest": "^6.3.3"
   },
   "jest": {
     "testEnvironment": "node",
@@ -24,6 +24,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "express-validator": "^7.3.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2"
   }
