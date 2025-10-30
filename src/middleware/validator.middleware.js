@@ -1,6 +1,6 @@
 const {body, validationResult} = require('express-validator');
 
-const registorUserValidator =[
+const registerUserValidator = [
 
     body("username")
       .isString()
