@@ -186,8 +186,11 @@ async function registerUser(req, res) {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    // 🎉 Send clean response
+    // 🎉 Send clean response (also include top-level fields for tests/clients)
     return res.status(201).json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
       message: "User registered successfully",
       user: {
         id: user._id,

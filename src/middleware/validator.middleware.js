@@ -34,15 +34,32 @@ const registerUserValidator = [
       .withMessage("Last name is required")
 ];
 
+// 🔐 Login validation
+const loginValidator = [
+  body("email")
+    .isEmail()
+    .withMessage("Invalid email format")
+    .notEmpty()
+    .withMessage("Email is required"),
+
+  body("password")
+    .isString()
+    .withMessage("Password must be a string")
+    .notEmpty()
+    .withMessage("Password is required"),
+];
+
 const validate = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-    next();
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // Include a top-level message for compatibility with tests and clients
+    return res.status(400).json({ message: 'Validation failed', errors: errors.array() });
+  }
+  next();
 };
 
 module.exports = {
     registerUserValidator,
+  loginValidator,
     validate
 };

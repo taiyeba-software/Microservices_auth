@@ -6,7 +6,7 @@ async function loginUser(req, res) {
   try {
     const { username, password } = req.body;
 
-    // Check required fields
+    // Check required fields (tests expect username + password)
     if (!username || !password) {
       return res.status(400).json({ message: "Username and password are required" });
     }
