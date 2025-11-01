@@ -34,19 +34,31 @@ const registerUserValidator = [
       .withMessage("Last name is required")
 ];
 
-// 🔐 Login validation
-const loginValidator = [
-  body("email")
-    .isEmail()
-    .withMessage("Invalid email format")
-    .notEmpty()
-    .withMessage("Email is required"),
 
+const loginValidator = [
+  // 🔐 Login validation — accept either username OR email, plus password
+  // username is optional but if provided must be a string
+  body("username").optional().isString().withMessage("Username must be a string"),
+
+  // email is optional but if provided must be valid
+  body("email").optional().isEmail().withMessage("Invalid email format"),
+
+  // password is required
   body("password")
     .isString()
     .withMessage("Password must be a string")
     .notEmpty()
     .withMessage("Password is required"),
+
+  // custom check: require at least one of username or email
+  (req, res, next) => {
+    // If password missing or both username/email missing, return the
+    // message expected by existing tests: 'Username and password are required'
+    if (!req.body.password || (!req.body.username && !req.body.email)) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
+    next();
+  }
 ];
 
 const validate = (req, res, next) => {
@@ -60,6 +72,6 @@ const validate = (req, res, next) => {
 
 module.exports = {
     registerUserValidator,
-  loginValidator,
+    loginValidator,
     validate
 };
